@@ -1,0 +1,103 @@
+
+:orphan:
+
+.. _sphx_glr_sg_execution_times:
+
+
+Computation times
+=================
+**00:31.063** total execution time for 23 files **from all galleries**:
+
+.. container::
+
+  .. raw:: html
+
+    <style scoped>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" rel="stylesheet" />
+    </style>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+    <script type="text/javascript" class="init">
+    $(document).ready( function () {
+        $('table.sg-datatable').DataTable({order: [[1, 'desc']]});
+    } );
+    </script>
+
+  .. list-table::
+   :header-rows: 1
+   :class: table table-striped sg-datatable
+
+   * - Example
+     - Time
+     - Mem (MB)
+   * - :ref:`sphx_glr_verif-manual_vm-299.py` (``../../examples/verif-manual/vm-299.py``)
+     - 00:06.507
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-006-pinched_cylinder.py` (``../../examples/verif-manual/vm-006-pinched_cylinder.py``)
+     - 00:04.187
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-016.py` (``../../examples/verif-manual/vm-016.py``)
+     - 00:02.054
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-005-laterally_loaded_tapered_support_structure.py` (``../../examples/verif-manual/vm-005-laterally_loaded_tapered_support_structure.py``)
+     - 00:01.533
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-018.py` (``../../examples/verif-manual/vm-018.py``)
+     - 00:01.373
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-291.py` (``../../examples/verif-manual/vm-291.py``)
+     - 00:01.320
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-295.py` (``../../examples/verif-manual/vm-295.py``)
+     - 00:01.317
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-012-combined-bending-and-torsion.py` (``../../examples/verif-manual/vm-012-combined-bending-and-torsion.py``)
+     - 00:01.144
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-004-deflection_of_a_hinged_support.py` (``../../examples/verif-manual/vm-004-deflection_of_a_hinged_support.py``)
+     - 00:01.133
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-007-plastic_compression_of_a_pipe_assembly.py` (``../../examples/verif-manual/vm-007-plastic_compression_of_a_pipe_assembly.py``)
+     - 00:01.084
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-002-beam_stresses_and_deflections.py` (``../../examples/verif-manual/vm-002-beam_stresses_and_deflections.py``)
+     - 00:01.056
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-003-thermally_loaded_support_structure.py` (``../../examples/verif-manual/vm-003-thermally_loaded_support_structure.py``)
+     - 00:01.028
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-008-parametric_calculation.py` (``../../examples/verif-manual/vm-008-parametric_calculation.py``)
+     - 00:01.006
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-025.py` (``../../examples/verif-manual/vm-025.py``)
+     - 00:00.808
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-011-residual-stress-problem.py` (``../../examples/verif-manual/vm-011-residual-stress-problem.py``)
+     - 00:00.726
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-001-statically_indeterminate_reaction_force_analysis.py` (``../../examples/verif-manual/vm-001-statically_indeterminate_reaction_force_analysis.py``)
+     - 00:00.722
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-021.py` (``../../examples/verif-manual/vm-021.py``)
+     - 00:00.715
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-015.py` (``../../examples/verif-manual/vm-015.py``)
+     - 00:00.683
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-010-bending_of_a_t-shaped_beam.py` (``../../examples/verif-manual/vm-010-bending_of_a_t-shaped_beam.py``)
+     - 00:00.617
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-020.py` (``../../examples/verif-manual/vm-020.py``)
+     - 00:00.590
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-014.py` (``../../examples/verif-manual/vm-014.py``)
+     - 00:00.564
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-013.py` (``../../examples/verif-manual/vm-013.py``)
+     - 00:00.559
+     - 0.0
+   * - :ref:`sphx_glr_verif-manual_vm-009-large_lateral_deflection_of_unequal_stiffness_springs.py` (``../../examples/verif-manual/vm-009-large_lateral_deflection_of_unequal_stiffness_springs.py``)
+     - 00:00.337
+     - 0.0

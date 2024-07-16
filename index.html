@@ -1,0 +1,679 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="./" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>PyMAPDL Examples &#8212; PyMAPDL Examples</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="_static/css/ansys_sphinx_theme.css?v=a362721a" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+ 
+<link href="_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="_static/documentation_options.js?v=e7fb764e"></script>
+    <script src="_static/doctools.js?v=9a2dae69"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/thebelab-helper.js"></script>
+    <script src="_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="_static/copybutton.js?v=f281be69"></script>
+    <script src="_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'index';</script>
+    <link rel="icon" href="_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Verification Manual" href="verif-manual/index.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+<!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+   
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="#">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="PyMAPDL Examples - Home"/>
+    <script>document.write(`<img src="_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="PyMAPDL Examples - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="verif-manual/index.html">
+                        Verification Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="technology_showcase_examples/index.html">
+                        Technology Showcases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing/index.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples/discussions" title="Support" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Support</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+    
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar hide-on-wide">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="verif-manual/index.html">
+                        Verification Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="technology_showcase_examples/index.html">
+                        Technology Showcases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="contributing/index.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples/discussions" title="Support" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Support</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+       
+    <li class="breadcrumb-item">
+      <a href="https://mapdl.docs.pyansys.com/" class="nav-link">PyMAPDL</a>
+    </li>
+       
+    <li class="breadcrumb-item">
+      <a href="https://mapdl.docs.pyansys.com/version/stable/examples/" class="nav-link">Examples</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="#"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+      
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="pymapdl-examples">
+<span id="sphx-glr-pymapdl-examples"></span><h1>PyMAPDL Examples<a class="headerlink" href="#pymapdl-examples" title="Link to this heading">#</a></h1>
+<p>The Technology Showcases and the Verification Manual examples for
+<a class="reference external" href="https://mapdl.docs.pyansys.com/version/stable/">PyMAPDL</a> are contained in this repository.</p>
+</section>
+<section id="verification-manual">
+<h1>Verification Manual<a class="headerlink" href="#verification-manual" title="Link to this heading">#</a></h1>
+<p>These examples present how to use PyMAPDL in an academic modeling context.
+They ensure the PyMAPDL accuracy.</p>
+<section id="summary-of-the-exposed-verification-manual-examples">
+<h2>Summary of the exposed Verification Manual Examples<a class="headerlink" href="#summary-of-the-exposed-verification-manual-examples" title="Link to this heading">#</a></h2>
+<p>in straightforward problems which have “classical” or readily-obtainable
+theoretical solutions using PyMAPDL.</p>
+<p>These problems may then serve as the basis for additional validation and
+qualification of Mechanical APDL capabilities for specific applications that
+may be of interest.</p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-001-statically_indeterminate_reaction_force_analysis_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-001-statically_indeterminate_reaction_force_analysis.html#sphx-glr-verif-manual-vm-001-statically-indeterminate-reaction-force-analysis-py"><span class="std std-ref">Statically indeterminate reaction force analysis</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Statically indeterminate reaction force analysis</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip=" - A standard 30 inch WF beam, with a cross-sectional area A,    is supported as shown below an..."><img alt="" src="_images/sphx_glr_vm-002-beam_stresses_and_deflections_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-002-beam_stresses_and_deflections.html#sphx-glr-verif-manual-vm-002-beam-stresses-and-deflections-py"><span class="std std-ref">Beam stresses and deflections</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Beam stresses and deflections</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-003-thermally_loaded_support_structure_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-003-thermally_loaded_support_structure.html#sphx-glr-verif-manual-vm-003-thermally-loaded-support-structure-py"><span class="std std-ref">Thermally loaded support structure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Thermally loaded support structure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-004-deflection_of_a_hinged_support_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-004-deflection_of_a_hinged_support.html#sphx-glr-verif-manual-vm-004-deflection-of-a-hinged-support-py"><span class="std std-ref">Deflection of a hinged support</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Deflection of a hinged support</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. H. Crandall, N. C. Dahl, An Introduction to the Mechanics    of Solids, McGraw..."><img alt="" src="_images/sphx_glr_vm-005-laterally_loaded_tapered_support_structure_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-005-laterally_loaded_tapered_support_structure.html#sphx-glr-verif-manual-vm-005-laterally-loaded-tapered-support-structure-py"><span class="std std-ref">Laterally Loaded Tapered Support Structure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Laterally Loaded Tapered Support Structure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - R. D. Cook, Concepts and Applications of Finite Element Analysis, 2nd Edition,   ..."><img alt="" src="_images/sphx_glr_vm-006-pinched_cylinder_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-006-pinched_cylinder.html#sphx-glr-verif-manual-vm-006-pinched-cylinder-py"><span class="std std-ref">Pinched cylinder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Pinched cylinder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. H. Crandall, N. C. Dahl, An Introduction to the Mechanics of Solids,    McGraw..."><img alt="" src="_images/sphx_glr_vm-007-plastic_compression_of_a_pipe_assembly_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-007-plastic_compression_of_a_pipe_assembly.html#sphx-glr-verif-manual-vm-007-plastic-compression-of-a-pipe-assembly-py"><span class="std std-ref">Plastic compression of a pipe assembly</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Plastic compression of a pipe assembly</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - None."><img alt="" src="_images/sphx_glr_vm-008-parametric_calculation_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-008-parametric_calculation.html#sphx-glr-verif-manual-vm-008-parametric-calculation-py"><span class="std std-ref">Parametric calculation</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Parametric calculation</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - G. N. Vanderplaats, Numerical Optimization Techniques for Engineering    Design w..."><img alt="" src="_images/sphx_glr_vm-009-large_lateral_deflection_of_unequal_stiffness_springs_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-009-large_lateral_deflection_of_unequal_stiffness_springs.html#sphx-glr-verif-manual-vm-009-large-lateral-deflection-of-unequal-stiffness-springs-py"><span class="std std-ref">Large lateral deflection of unequal stiffness springs</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Large lateral deflection of unequal stiffness springs</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. H. Crandall, N. C. Dahl, An Introduction to the Mechanics of Solids,    McGraw..."><img alt="" src="_images/sphx_glr_vm-010-bending_of_a_t-shaped_beam_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-010-bending_of_a_t-shaped_beam.html#sphx-glr-verif-manual-vm-010-bending-of-a-t-shaped-beam-py"><span class="std std-ref">Bending of a Tee-Shaped Beam</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Bending of a Tee-Shaped Beam</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. H. Crandall, N. C. Dahl, An Introduction to the Mechanics of Solids,    McGraw..."><img alt="" src="_images/sphx_glr_vm-011-residual-stress-problem_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-011-residual-stress-problem.html#sphx-glr-verif-manual-vm-011-residual-stress-problem-py"><span class="std std-ref">Residual Stress Problem</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Residual Stress Problem</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, 3rd..."><img alt="" src="_images/sphx_glr_vm-012-combined-bending-and-torsion_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-012-combined-bending-and-torsion.html#sphx-glr-verif-manual-vm-012-combined-bending-and-torsion-py"><span class="std std-ref">Combined bending and torsion</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Combined bending and torsion</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-013_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-013.html#sphx-glr-verif-manual-vm-013-py"><span class="std std-ref">Cylindrical Shell Under Pressure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical Shell Under Pressure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-014_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-014.html#sphx-glr-verif-manual-vm-014-py"><span class="std std-ref">Large Deflection Eccentric Compression of Slender Column</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Large Deflection Eccentric Compression of Slender Column</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Case 1: Uniform loading P, clamped edge.     Case 2: Concentrated center loading F, clamped..."><img alt="" src="_images/sphx_glr_vm-015_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-015.html#sphx-glr-verif-manual-vm-015-py"><span class="std std-ref">Bending of a Circular Plate Using Axisymmetric Shell Elements</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Bending of a Circular Plate Using Axisymmetric Shell Elements</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="    Case 1: a moment M.     Case 2: a shear force F."><img alt="" src="_images/sphx_glr_vm-016_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-016.html#sphx-glr-verif-manual-vm-016-py"><span class="std std-ref">Bending of a Solid Beam (Plane Elements)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Bending of a Solid Beam (Plane Elements)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part I, Elementary Theory and    Problems, ..."><img alt="" src="_images/sphx_glr_vm-018_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-018.html#sphx-glr-verif-manual-vm-018-py"><span class="std std-ref">Out-of-Plane Bending of a Curved Bar</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Out-of-Plane Bending of a Curved Bar</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part II, Elementary Theory and    Problems,..."><img alt="" src="_images/sphx_glr_vm-020_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-020.html#sphx-glr-verif-manual-vm-020-py"><span class="std std-ref">Cylindrical Membrane Under Pressure</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cylindrical Membrane Under Pressure</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part II, Elementary Theory and    Problems,..."><img alt="" src="_images/sphx_glr_vm-021_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-021.html#sphx-glr-verif-manual-vm-021-py"><span class="std std-ref">Tie Rod with Lateral Loading</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Tie Rod with Lateral Loading</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - S. Timoshenko, Strength of Materials, Part II, Elementary Theory and    Problems,..."><img alt="" src="_images/sphx_glr_vm-025_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-025.html#sphx-glr-verif-manual-vm-025-py"><span class="std std-ref">Stresses in a Long Cylinder</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Stresses in a Long Cylinder</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - TIMOSHENKO,S.P.,AND J.N.GOODIER,THEORY OF ELASTICITY    MCGRAW-HILL,NEW YORK, PP ..."><img alt="" src="_images/sphx_glr_vm-291_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-291.html#sphx-glr-verif-manual-vm-291-py"><span class="std std-ref">Force on the Boundary of a Semi-Infinite Body (Boussinesq Problem)</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Force on the Boundary of a Semi-Infinite Body (Boussinesq Problem)</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - A POINT INTERPOLATION METHOD FOR SIMULATING DISSIPATION PROCESS    OF CONSOLIDATI..."><img alt="" src="_images/sphx_glr_vm-295_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-295.html#sphx-glr-verif-manual-vm-295-py"><span class="std std-ref">One Dimensional Terzaghi’s Consolidation Problem with Permeability as Function of Depth</span></a></p>
+  <div class="sphx-glr-thumbnail-title">One Dimensional Terzaghi's Consolidation Problem with Permeability as Function of Depth</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Reference:  - A.BILLON,J.PICAUT,&#x27;INTRODUCING ATMOSPHERIC ATTENUATION    WITHIN A DIFFUSION MODE..."><img alt="" src="_images/sphx_glr_vm-299_thumb.png" />
+<p><a class="reference internal" href="verif-manual/vm-299.html#sphx-glr-verif-manual-vm-299-py"><span class="std std-ref">Sound Diffusion in a Flat Room</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Sound Diffusion in a Flat Room</div>
+</div></div></section>
+</section>
+<section id="technology-showcases">
+<h1>Technology Showcases<a class="headerlink" href="#technology-showcases" title="Link to this heading">#</a></h1>
+<p>This documentation demonstrates the broad simulation capabilities of Ansys Mechanical
+APDL.
+The problems demonstrate how to use PyMAPDL to effectively and accurately
+solve interdisciplinary problems from a variety of industries and engineering
+fields.</p>
+<section id="summary-of-the-exposed-technology-showcases">
+<h2>Summary of the exposed Technology Showcases<a class="headerlink" href="#summary-of-the-exposed-technology-showcases" title="Link to this heading">#</a></h2>
+<p>The exposed files are more complex examples than the ones presented in the <a class="reference external" href="https://ansyshelp.ansys.com/account/secured?returnurl=/Views/Secured/corp/v222/en/ai_rn/ansys_rn_verif.html">APDL
+Verification Manual</a>. They are complete and concrete case studies
+which necessitate more resources.</p>
+<div class="sphx-glr-thumbnails"><div class="sphx-glr-thumbcontainer" tooltip="Technology Showcase demonstration Example 01: Brake Squeal Analysis"><img alt="Brake Squeal Analysis" src="_images/sphx_glr_tse-001-brake_squeal_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-1/ex_01-tecbrakesqueal.html#sphx-glr-ex-01-tecbrakesqueal-py"><span class="std std-ref">Brake Squeal Analysis</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Brake Squeal Analysis</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Calibrating and validating a hyperelastic constitutive model"><img alt="Calibrating and validating a hyperelastic constitutive model" src="_images/sphx_glr_tse-015-calvalhyper_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-15/ex_15-teccalvalhyper.html#sphx-glr-ex-15-techyperconstlmodel-py"><span class="std std-ref">Calibrating and validating a hyperelastic constitutive model</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Calibrating and validating a hyperelastic constitutive Model</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Technology Showcase demonstration Example 20: Dynamic simulation of a printed circuit board assembly"><img alt="Dynamic simulation of a printed circuit board assembly" src="_images/sphx_glr_tse-020-PCB_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-20/ex_20-tecPCB.html#sphx-glr-ex-20-tecpcb-rst"><span class="std std-ref">Dynamic simulation of a printed circuit board assembly</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Dynamic simulation of a printed circuit board assembly</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Technology Showcase demonstration Example 21: Buckling and post-buckling analysis of a ring-stiffened cylinder using nonlinear stabilization"><img alt="Buckling and post-buckling analysis" src="_images/sphx_glr_tse-021-buckling_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-21/ex_21-tecbuckling.html#sphx-glr-ex-21-tecbuckling-rst"><span class="std std-ref">Buckling and post-buckling analysis of a ring-stiffened cylinder using nonlinear stabilization</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Buckling and post-buckling</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Technology Showcase demonstration Example 25: Cardiovascular Stent Simulation"><img alt="Cardiovascular Stent Simulation" src="_images/sphx_glr_tse-025-stent_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-25/ex_25-tecstent.html#sphx-glr-ex-25-tecstent-rst"><span class="std std-ref">Cardiovascular Stent Simulation</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Cardiovascular Stent Simulation</div>
+</div><div class="sphx-glr-thumbcontainer" tooltip="Technology Showcase demonstration Example 28: Friction Stir Welding (FSW) Simulation"><img alt="Friction Stir Welding (FSW) Simulation" src="_images/sphx_glr_tse-028-fricstir_thumb.png" />
+<p><a class="reference internal" href="technology_showcase_examples/techdemo-28/ex_28-tecfricstir.html#sphx-glr-ex-28-tecfricstir-py"><span class="std std-ref">Friction stir welding (FSW) simulation</span></a></p>
+  <div class="sphx-glr-thumbnail-title">Friction Stir Welding (FSW) Simulation</div>
+</div></div><div class="toctree-wrapper compound">
+</div>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">PyMAPDL Examples</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#verification-manual">Verification Manual</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-exposed-verification-manual-examples">Summary of the exposed Verification Manual Examples</a></li>
+</ul>
+</li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#technology-showcases">Technology Showcases</a><ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#summary-of-the-exposed-technology-showcases">Summary of the exposed Technology Showcases</a></li>
+</ul>
+</li>
+</ul>
+
+  </nav></div>
+
+  <div class="sidebar-secondary-item"> 
+<div class="tocsection editthispage">
+  <a href="https://github.com/ansys/pymapdl-examples/edit/main/doc/source/index.rst">
+    <i class="fa-solid fa-pencil"></i>
+       Edit
+    on GitHub  
+  </a>
+</div>
+
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="_sources/index.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  0.16.6. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>

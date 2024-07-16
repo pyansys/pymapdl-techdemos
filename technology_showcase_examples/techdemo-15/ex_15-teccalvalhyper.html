@@ -1,0 +1,1057 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Calibrating and validating a hyperelastic constitutive model &#8212; PyMAPDL Examples</title>
+
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=5b4479735964841361fd" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=5b4479735964841361fd" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=5b4479735964841361fd" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=a746c00c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/jupyter-sphinx.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/thebelab.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery.css?v=61a4c737" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-binder.css?v=f4aeca0c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-dataframe.css?v=2082cf3c" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sg_gallery-rendered-html.css?v=1277b6f3" />
+    <link rel="stylesheet" type="text/css" href="../../_static/css/ansys_sphinx_theme.css?v=a362721a" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.23/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" type="text/css" href="https://www.nerdfonts.com/assets/css/webfont.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=87e54e7c" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd" />
+  <script src="../../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=5b4479735964841361fd"></script>
+ 
+<link href="../../_static/css/breadcrumbs.css" rel="stylesheet" />
+
+    <script src="../../_static/documentation_options.js?v=e7fb764e"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/thebelab-helper.js"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/table.js?v=b64f5182"></script>
+    <script src="https://cdn.datatables.net/1.10.23/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@jupyter-widgets/html-manager@^1.0.1/dist/embed-amd.js"></script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'technology_showcase_examples/techdemo-15/ex_15-teccalvalhyper';</script>
+    <link rel="icon" href="../../_static/ansys-favicon.png"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Dynamic simulation of a printed circuit board assembly" href="../techdemo-20/ex_20-tecPCB.html" />
+    <link rel="prev" title="Brake Squeal Analysis" href="../techdemo-1/ex_01-tecbrakesqueal.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container"><!-- Debugging: html_theme_options =  -->
+
+<!-- If there is no MiliSearch enabled, use the PyData search -->
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search the docs ..."
+         aria-label="Search the docs ..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+   
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+<div class="bd-header__inner bd-page-width">
+  <label class="sidebar-toggle primary-toggle" for="__primary">
+    <span class="fa-solid fa-bars"></span>
+  </label>
+  
+  
+  <div class="col-lg-3 navbar-header-items__start">
+    
+      <div class="navbar-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-light" alt="PyMAPDL Examples - Home"/>
+    <script>document.write(`<img src="../../_static/pyansys-logo-black-cropped.png" class="logo__image only-dark" alt="PyMAPDL Examples - Home"/>`);</script>
+  
+  
+</a></div>
+    
+  </div>
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    <div class="me-auto navbar-header-items__center">
+      
+        <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../verif-manual/index.html">
+                        Verification Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Technology Showcases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/index.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+      
+    </div>
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+        </div>
+      
+      
+        <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+      
+        <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples/discussions" title="Support" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Support</span></a>
+        </li>
+</ul></div>
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script>
+    </div>
+  
+
+  
+    <label class="sidebar-toggle secondary-toggle" for="__secondary" tabindex="0">
+      <span class="fa-solid fa-outdent"></span>
+    </label>
+  
+</div>
+
+    </nav>
+    
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+      <div class="sidebar-header-items__center">
+        
+          <div class="navbar-item">
+<nav class="navbar-nav">
+  <p class="sidebar-header-items__title"
+     role="heading"
+     aria-level="1"
+     aria-label="Site Navigation">
+    Site Navigation
+  </p>
+  <ul class="bd-navbar-elements navbar-nav">
+    
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../verif-manual/index.html">
+                        Verification Manual
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item current active">
+                      <a class="nav-link nav-internal" href="../index.html">
+                        Technology Showcases
+                      </a>
+                    </li>
+                
+
+                    <li class="nav-item">
+                      <a class="nav-link nav-internal" href="../../contributing/index.html">
+                        Contribute
+                      </a>
+                    </li>
+                
+  </ul>
+</nav></div>
+        
+      </div>
+    
+    
+    
+      <div class="sidebar-header-items__end">
+        
+          <div class="navbar-item">
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script></div>
+        
+          <div class="navbar-item"><ul class="navbar-icon-links navbar-nav"
+    aria-label="Icon Links">
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples" title="GitHub" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa-brands fa-square-github fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">GitHub</span></a>
+        </li>
+        <li class="nav-item">
+          
+          
+          
+          
+          
+          
+          
+          
+          <a href="https://github.com/ansys/pymapdl-examples/discussions" title="Support" class="nav-link" rel="noopener" target="_blank" data-bs-toggle="tooltip" data-bs-placement="bottom"><span><i class="fa fa-comment fa-fw fa-lg" aria-hidden="true"></i></span>
+            <span class="sr-only">Support</span></a>
+        </li>
+</ul></div>
+        
+      </div>
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+<nav class="bd-docs-nav bd-links"
+     aria-label="Section Navigation">
+  <p class="bd-links__title" role="heading" aria-level="1">Section Navigation</p>
+  <div class="bd-toc-item navbar-nav"><ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../techdemo-1/ex_01-tecbrakesqueal.html">Brake Squeal Analysis</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Calibrating and validating a hyperelastic constitutive model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../techdemo-20/ex_20-tecPCB.html">Dynamic simulation of a printed circuit board assembly</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../techdemo-21/ex_21-tecbuckling.html">Buckling and post-buckling analysis of a ring-stiffened cylinder using nonlinear stabilization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../techdemo-25/ex_25-tecstent.html">Cardiovascular Stent Simulation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../techdemo-28/ex_28-tecfricstir.html">Friction stir welding (FSW) simulation</a></li>
+</ul>
+</div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item">
+<nav aria-label="Breadcrumb">
+  <ul class="bd-breadcrumbs">
+         
+    <li class="breadcrumb-item breadcrumb-home">
+      <a href="https://docs.pyansys.com/" class="nav-link">PyAnsys</a>
+    </li>
+       
+    <li class="breadcrumb-item">
+      <a href="https://mapdl.docs.pyansys.com/" class="nav-link">PyMAPDL</a>
+    </li>
+       
+    <li class="breadcrumb-item">
+      <a href="https://mapdl.docs.pyansys.com/version/stable/examples/" class="nav-link">Examples</a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a
+        href="../../index.html"
+        class="nav-link"
+        aria-label="Home"
+      >
+        <i class="fa-solid fa-home"></i>
+      </a>
+    </li>
+     
+    <li class="breadcrumb-item">
+      <a href="../index.html" class="nav-link">Technology Showcases</a>
+    </li>
+      
+    <li class="breadcrumb-item active" aria-current="page">Calibrating and validating a hyperelastic constitutive model</li>
+    
+  </ul>
+</nav>
+</div>
+      
+    </div>
+  
+  
+</div>
+</div>
+              
+              
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section id="calibrating-and-validating-a-hyperelastic-constitutive-model">
+<span id="sphx-glr-ex-15-techyperconstlmodel-py"></span><h1>Calibrating and validating a hyperelastic constitutive model<a class="headerlink" href="#calibrating-and-validating-a-hyperelastic-constitutive-model" title="Link to this heading">#</a></h1>
+<p>This example problem demonstrates the hyperelastic curve-fitting capabilities used
+to select constitutive model parameters to fit experimental data. Several issues
+that influence the accuracy of the curve fit are discussed.
+Validation of the resulting constitutive model is demonstrated by comparison with a
+tension-torsion experiment.</p>
+<p>The following topics are available:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#introduction">15.1. Introduction</a></p></li>
+<li><p><a class="reference internal" href="#problem-description">15.2. Problem description</a></p></li>
+<li><p><a class="reference internal" href="#material-properties">15.3. Material properties</a></p></li>
+<li><p><a class="reference internal" href="#analysis-and-solution-controls">15.4. Analysis and solution controls</a></p></li>
+<li><p><a class="reference internal" href="#results-and-discussion">15.5. Results and discussion</a></p></li>
+<li><p><a class="reference internal" href="#recommendations">15.6. Recommendations</a></p></li>
+<li><p><a class="reference internal" href="#references">15.7. References</a></p></li>
+<li><p><a class="reference internal" href="#input-files">15.8. Input files</a></p></li>
+</ul>
+<p>You can also perform this example analysis entirely in the Ansys
+Mechanical Application. For more information, see
+<em>Calibrating and Validating a Hyperelastic Constitutive Model in the Workbench Technology Showcase: Example Problems</em>.</p>
+<section id="introduction">
+<h2>15.1. Introduction<a class="headerlink" href="#introduction" title="Link to this heading">#</a></h2>
+<p>Several hyperelastic constitutive models can be used to model the large deformation
+behavior of elastic materials; however, it is sometimes difficult to select parameters
+to adequately match the behavior of the material.
+The curve-fitting process fits the hyperelastic constitutive model parameters to a set
+of experimental data using a least-squares minimization.</p>
+<p>Curve-fitting is relatively simple, but certain conditions can affect the accuracy of
+the resulting constitutive model.
+The constitutive model should therefore be compared with experimental data to ensure
+that it adequately reproduces the material behavior over the actual range of deformation.</p>
+</section>
+<section id="problem-description">
+<h2>15.2. Problem description<a class="headerlink" href="#problem-description" title="Link to this heading">#</a></h2>
+<p>A constitutive model is needed that matches the behavior of a vulcanized natural
+rubber material up to 100 percent engineering strain in a variety of deformation modes.</p>
+<p>In this problem, the experimental data are obtained from a simulation of a
+hyperelastic test suite (uniaxial, biaxial, and planar tension tests) using common
+experimental test specimens. Using this data, parameters for a constitutive model are
+determined using hyperelastic fitting capabilities that focus on use of the three-,
+five-, and nine-parameter Mooney-Rivlin hyperelastic models.</p>
+<p>After demonstrating the fitting procedure and selecting a suitable constitutive model,
+a tension-torsion experiment is simulated and compared to the experimental data to
+validate the predictions for the model.</p>
+</section>
+<section id="material-properties">
+<h2>15.3. Material properties<a class="headerlink" href="#material-properties" title="Link to this heading">#</a></h2>
+<p>Material properties for the calibration and validation experiments follow:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#calibration-experiments">15.3.1. Calibration Experiments</a></p></li>
+<li><p><a class="reference internal" href="#validation-experiment">15.3.2. Validation Experiment</a></p></li>
+</ul>
+<section id="calibration-experiments">
+<h3>15.3.1. Calibration experiments<a class="headerlink" href="#calibration-experiments" title="Link to this heading">#</a></h3>
+<p>Experimental data was obtained via a simulation of a hyperelastic test suite with
+an Ogden hyperelastic material.
+The test suite specimens are shown here, with the dark areas indicating locations
+of the clamps:</p>
+<figure class="align-center" id="id1">
+<img alt="Hyperelastic test suite: test specimens" src="../../_images/gtec_calvalhyper_fig1.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 9 </span><span class="caption-text"><strong>Figure 15.1: Hyperelastic test suite: test specimens</strong></span><a class="headerlink" href="#id1" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The engineering-stress vs. engineering-strain results are as follows:</p>
+<figure class="align-center" id="figure-experimental-data">
+<img alt="Hyperelastic test suite: experimental data" src="../../_images/gtec_calvalhyper_fig2.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 10 </span><span class="caption-text"><strong>Figure 15.2: Hyperelastic test suite: experimental data</strong></span><a class="headerlink" href="#figure-experimental-data" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The uniaxial specimen is similar to ASTM D412-C (ASTM Standard D412, 2006).</p>
+<p>The crosshead is displaced by 396 mm, giving a measured engineering strain in the
+gage section of 662 percent and a calculated engineering stress of 58.1 MPa.</p>
+<p>The equibiaxial specimen is disc-shaped, with 16 equally spaced tabs about the
+circumference. The tabs are stretched 127.3 mm, resulting in a measured engineering
+strain in the gage section of 336 percent and a calculated engineering stress of
+22.1 MPa.</p>
+<p>For the planar specimen, the crosshead is displaced by 191.6 mm, giving a
+calculated engineering strain of 639 percent and a calculated engineering stress of
+54.7 MPa.</p>
+</section>
+<section id="validation-experiment">
+<h3>15.3.2. Validation experiment<a class="headerlink" href="#validation-experiment" title="Link to this heading">#</a></h3>
+<p>A simulated tension-torsion experiment was performed on a thin strip. The specimen
+is similar to that specified in ASTM D1043 (ASTM Standard D1043, 2006) and is shown
+here:</p>
+<figure class="align-center" id="id2">
+<img alt="Tension-torsion test specimen" src="../../_images/gtec_calvalhyper_fig3.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 11 </span><span class="caption-text"><strong>Figure 15.3: Tension-torsion test specimen</strong></span><a class="headerlink" href="#id2" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The experiment consists of clamping each end of the specimen into the test
+apparatus, then stretching the specimen by 50 percent of its original gage length
+and twisting one end of the specimen for four complete revolutions. Following is the
+resulting moment-vs.-rotation data:</p>
+<figure class="align-center" id="id3">
+<img alt="Tension-torsion experimental data" src="../../_images/gtec_calvalhyper_fig4.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 12 </span><span class="caption-text"><strong>Figure 15.4: Tension-torsion experimental data</strong></span><a class="headerlink" href="#id3" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+</section>
+</section>
+<section id="analysis-and-solution-controls">
+<h2>15.4. Analysis and solution controls<a class="headerlink" href="#analysis-and-solution-controls" title="Link to this heading">#</a></h2>
+<p>Analysis and solution-control information for calibration and validation
+follow:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#calibrating-parameters">15.4.1. Calibrating parameters</a></p></li>
+<li><p><a class="reference internal" href="#validating-parameters">15.4.2. Validating parameters</a></p></li>
+</ul>
+<section id="calibrating-parameters">
+<h3>15.4.1. Calibrating parameters<a class="headerlink" href="#calibrating-parameters" title="Link to this heading">#</a></h3>
+<p>Material parameter calibration occurs using the curve-fitting
+tool.</p>
+<p><strong>Example 15.1: Fitting a hyperelastic constitutive model to a set of uniaxial stress-strain
+Data</strong></p>
+<p>The command input shown here is for illustration only. While curve-fitting is
+possible via command input, Ansys, Inc. recommends using the graphical user
+interface (GUI) to perform the curve-fitting, or at least visually validating
+the results using the GUI to ensure a sound fit.</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ansys.mapdl.core</span> <span class="kn">import</span> <span class="n">launch_mapdl</span>
+<span class="n">mapdl</span> <span class="o">=</span> <span class="n">launch_mapdl</span><span class="p">()</span>
+
+<span class="n">mapdl</span><span class="o">.</span><span class="n">prep7</span><span class="p">()</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tbft</span><span class="p">(</span><span class="s2">&quot;fadd&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;hyper&quot;</span><span class="p">,</span><span class="s2">&quot;mooney&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tbft</span><span class="p">(</span><span class="s2">&quot;eadd&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;unia&quot;</span><span class="p">,</span><span class="s2">&quot;uniax&quot;</span><span class="o">.</span><span class="n">l</span><span class="p">)</span><span class="n">OG</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tbft</span><span class="p">(</span><span class="s2">&quot;solve&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;hyper&quot;</span><span class="p">,</span><span class="s2">&quot;mooney&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tbft</span><span class="p">(</span><span class="s2">&quot;fset&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;hyper&quot;</span><span class="p">,</span><span class="s2">&quot;mooney&quot;</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">TBFT,FADD</span></code> command initializes the curve-fitting procedure
+for a hyperelastic, three-parameter, Mooney-Rivlin model assigned to
+material identification number 1.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TBFT,EADD</span></code> reads the uniaxial experimental data in the
+<code class="docutils literal notranslate"><span class="pre">uniax.log</span></code> file as the fitting data for material number 1.
+The experimental data in the file is a set of engineering-strain vs.
+engineering-stress input:</p>
+<div class="highlight-output notranslate"><div class="highlight"><pre><span></span><span class="go">0.819139E-01  0.82788577E+00</span>
+<span class="go">0.166709E+00  0.15437247E+01</span>
+<span class="go">0.253960E+00  0.21686152E+01</span>
+<span class="go">0.343267E+00  0.27201819E+01</span>
+<span class="go">0.434257E+00  0.32129833E+01</span>
+<span class="go">0.526586E+00  0.36589498E+01</span>
+<span class="go">0.619941E+00  0.40677999E+01</span>
+<span class="go">0.714042E+00  0.44474142E+01</span>
+<span class="go">0.808640E+00  0.48041608E+01</span>
+<span class="go">0.903519E+00  0.51431720E+01</span>
+<span class="go">0.998495E+00  0.54685772E+01</span>
+<span class="go">0.109341E+01  0.57836943E+01</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">TBFT,SOLVE</span></code> determines the three constitutive parameters for the
+Mooney-Rivlin model, minimizing the difference between the model and the
+experimental data.</p>
+<p><code class="docutils literal notranslate"><span class="pre">TBFT,FSET</span></code> assigns the fitted constitutive parameters to
+material number 1.</p>
+<p>For this problem, the fitted parameters for the three-parameter Mooney-Rivlin
+model are:</p>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{10} = 1.338856\)</span></p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{11} = - 1.648364 x10-2\)</span></p></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="validating-parameters">
+<h3>15.4.2. Validating parameters<a class="headerlink" href="#validating-parameters" title="Link to this heading">#</a></h3>
+<p>Following is a mesh developed to simulate the torsion experiment to validate the
+fitted constitutive model parameters obtained in  <a class="reference internal" href="#calibrating-parameters">15.4.1. Calibrating Parameters</a>:</p>
+<figure class="align-center" id="id4">
+<img alt="Tension-Torsion Test Specimen Mesh" src="../../_images/gtec_calvalhyper_fig5.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 13 </span><span class="caption-text"><strong>Figure 15.5: Tension-Torsion Test Specimen Mesh</strong></span><a class="headerlink" href="#id4" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>The mesh consists of 1,332 SOLID186 elements using the
+default formulation (a mixed-displacement pressure formulation with reduced
+integration).</p>
+<p>The attachment of the test specimen
+to the test apparatus is simulated by boundary conditions applied to the specimen in
+the region of the clamps, as described here:</p>
+<ul class="simple">
+<li><p>The back-left clamp region is fully restrained.</p></li>
+<li><p>The back-right clamp region is attached to a rigid-contact surface and
+fixed in place.</p></li>
+<li><p>The front-left clamp region is attached to a rigid-contact surface and
+displaced in the z direction to simulate a clamping displacement equal
+to 25 percent of the specimen thickness. The same is true for the
+front-right clamp region.
+The stretching to 50 percent engineering strain is simulated by displacing the
+rigid-contact surfaces attached to the right clamp regions while holding left clamp
+regions fixed.</p></li>
+</ul>
+<p>The torsion of the specimen is simulated by holding the left clamp region in place
+and twisting the keypoints attached to the right contact surfaces about the
+longitudinal axis.</p>
+</section>
+</section>
+<section id="results-and-discussion">
+<h2>15.5. Results and discussion<a class="headerlink" href="#results-and-discussion" title="Link to this heading">#</a></h2>
+<p>Results for the calibration and validation operations are discussed below:</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="#calibration-results">15.5.1. Calibration results</a></p></li>
+<li><p><a class="reference internal" href="#validation-results">15.5.2. Validation results</a></p></li>
+</ul>
+<section id="calibration-results">
+<h3>15.5.1. Calibration results<a class="headerlink" href="#calibration-results" title="Link to this heading">#</a></h3>
+<p>Using all of experimental data shown in <a class="reference internal" href="#figure-experimental-data"><span class="std std-numref">Fig. 10</span></a>
+to fit the three-, five-, and nine-parameter Mooney-Rivlin models results in the
+following parameters, fit to the entire range of experimental data:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Three-Parameter</p></th>
+<th class="head"><p>Five-Parameter</p></th>
+<th class="head"><p>Nine-Parameter</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{10}\)</span></p></td>
+<td><p>1.8785</p></td>
+<td><p>1.4546</p></td>
+<td><p>1.7095</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{01}\)</span></p></td>
+<td><p>-5.7759 x 10-2</p></td>
+<td><p>7.6677 x 10-2</p></td>
+<td><p>5.6365 x 10-2</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{20}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>1.3484 x 10-2</p></td>
+<td><p>-1.2088 x 10-2</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{11}\)</span></p></td>
+<td><p>1.9589 x 10-3</p></td>
+<td><p>-4.4337 x 10-3</p></td>
+<td><p>3.7099 x 10-5</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{02}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>2.3997 x 10-4</p></td>
+<td><p>-4.6858 x 10-4</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{30}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>3.5202 x 10-4</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{21}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>6.0562 x 10-6</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{12}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>1.9666 x 10-5</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{03}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>-8.9997 x 10-7</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\nu\)</span></p></td>
+<td><p>3.6415</p></td>
+<td><p>3.0625</p></td>
+<td><p>3.5318</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following figure is a comparison of the models to the experimental data:</p>
+<figure class="align-center" id="id5">
+<img alt="Comparison of the Data and Fits Over the Entire Range of Data" src="../../_images/gtec_calvalhyper_fig6.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 14 </span><span class="caption-text"><strong>Figure 15.6: Comparison of the Data and Fits Over the Entire Range of Data</strong></span><a class="headerlink" href="#id5" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Thus far, it is obvious that none of the models provide a suitable fit to the
+entire range of experimental data. The reason is that the least-squares fitting
+procedure is minimizing the error over the entire range of data; therefore, it can
+be detrimental to include data that is not representative of the <em>actual range of use</em>.</p>
+<p>If the experimental data range is limited to about 100 percent strain, however,
+the fitted parameters shown in the following table are obtained:</p>
+<table class="table">
+<thead>
+<tr class="row-odd"><th class="head"></th>
+<th class="head"><p>Three-Parameter</p></th>
+<th class="head"><p>Five-Parameter</p></th>
+<th class="head"><p>Nine-Parameter</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{10}\)</span></p></td>
+<td><p>1.6540</p></td>
+<td><p>1.7874</p></td>
+<td><p>1.8904</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{01}\)</span></p></td>
+<td><p>1.2929 x 10-1</p></td>
+<td><p>5.7229 x 10-2</p></td>
+<td><p>-3.6352 x 10-2</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{20}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>-5.8765 x 10-2</p></td>
+<td><p>-2.3484 x 10-1</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{11}\)</span></p></td>
+<td><p>-1.2726 x 10-2</p></td>
+<td><p>2.6843 x 10-2</p></td>
+<td><p>2.6511 x 10-1</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{02}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>-5.1127 x 10-3</p></td>
+<td><p>-6.8670 x 10-2</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{30}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>5.1742 x 10-2</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{21}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>-8.3262 x 10-2</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(C_{12}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>3.6204 x 10-2</p></td>
+</tr>
+<tr class="row-even"><td><p><span class="math notranslate nohighlight">\(C_{03}\)</span></p></td>
+<td><p>—</p></td>
+<td><p>—</p></td>
+<td><p>-4.3754 x 10-3</p></td>
+</tr>
+<tr class="row-odd"><td><p><span class="math notranslate nohighlight">\(\nu\)</span></p></td>
+<td><p>3.5665</p></td>
+<td><p>3.6892</p></td>
+<td><p>3.7081</p></td>
+</tr>
+</tbody>
+</table>
+<p>The following figure is a comparison of the models with the parameters fit to the
+modified experimental data:</p>
+<figure class="align-center" id="id6">
+<img alt="Parameters Fit to Experimental Data to About 100 Percent Strain" src="../../_images/gtec_calvalhyper_fig7.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 15 </span><span class="caption-text"><strong>Figure 15.7: Parameters Fit to Experimental Data to About 100 Percent Strain</strong></span><a class="headerlink" href="#id6" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>For the equibiaxial and planar experiments, any of the three models might be
+acceptable; however, the comparison with the uniaxial data might indicate that
+<em>none</em> of the three models are acceptable.</p>
+<p>The behavior of the model outside the fitted range can significantly differ from
+the actual response of the material. For example, the model parameters fit to the
+experimental data to 100 percent strain have been used to simulate the hyperelastic
+test suite to strains of about 200 percent, as shown in the following comparisons:</p>
+<figure class="align-center" id="id7">
+<img alt="Comparison of the Data and Fits Showing Predictions Outside the Range of Fitted Data" src="../../_images/gtec_calvalhyper_fig8.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 16 </span><span class="caption-text"><strong>Figure 15.8: Comparison of the Data and Fits Showing Predictions Outside the Range of Fitted Data</strong></span><a class="headerlink" href="#id7" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>Beyond 100 percent strain, it becomes apparent that some of the predictions
+quickly deteriorate. In all three comparisons, the nine-parameter model quickly
+loses accuracy, and it appears that the three- and nine-parameter Mooney-Rivlin
+models have lost stability for the biaxial deformation case.</p>
+</section>
+<section id="validation-results">
+<h3>15.5.2. Validation results<a class="headerlink" href="#validation-results" title="Link to this heading">#</a></h3>
+<p>The five-parameter Mooney-Rivlin model, fit to the experimental data up to 100
+percent strain, is selected as an adequate representation of the material response.
+The constitutive model is specified via the following input:</p>
+<div class="highlight-python3 notranslate"><div class="highlight"><pre><span></span><span class="n">C10</span> <span class="o">=</span> <span class="mf">1.787381e+00</span>
+<span class="n">C01</span> <span class="o">=</span> <span class="mf">5.722875e-02</span>
+<span class="n">C20</span> <span class="o">=-</span><span class="mf">5.876502e-02</span>
+<span class="n">C11</span> <span class="o">=</span> <span class="mf">2.684331e-02</span>
+<span class="n">C02</span> <span class="o">=-</span><span class="mf">5.112790e-03</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tb</span><span class="p">(</span><span class="s2">&quot;HYPER&quot;</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="s2">&quot;MOONEY&quot;</span><span class="p">)</span>
+<span class="n">mapdl</span><span class="o">.</span><span class="n">tbdata</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="n">C10</span><span class="p">,</span><span class="n">C01</span><span class="p">,</span><span class="n">C20</span><span class="p">,</span><span class="n">C11</span><span class="p">,</span><span class="n">C02</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The following figure shows a contour plot of the strain energy density at the end
+of simulation. The plot offers a general idea of the overall deformation of the
+specimen.</p>
+<figure class="align-center" id="id8">
+<img alt="Strain-Energy Density Contours of the Tension-Torsion Test" src="../../_images/gtec_calvalhyper_fig9.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 17 </span><span class="caption-text"><strong>Figure 15.9: Strain-Energy Density Contours of the Tension-Torsion Test</strong></span><a class="headerlink" href="#id8" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>With the exception of the clamp regions, the deformation shows a uniform pattern
+in the gage region along the axis of twisting. Perpendicular to the axis of twisting
+is a large strain-energy density near the outside edge of the specimen, decreasing
+toward the center.</p>
+<p>The following figure shows a comparison of the model with the experimental moment
+vs. theta data:</p>
+<figure class="align-center" id="id9">
+<img alt="Comparison of Tension-Torsion Experiment to the Five-Parameter Mooney-Rivlin Model" src="../../_images/gtec_calvalhyper_fig10.gif" />
+<figcaption>
+<p><span class="caption-number">Fig. 18 </span><span class="caption-text"><strong>Figure 15.10: Comparison of Tension-Torsion Experiment to the Five-Parameter Mooney-Rivlin Model</strong></span><a class="headerlink" href="#id9" title="Link to this image">#</a></p>
+</figcaption>
+</figure>
+<p>After a seemingly anomalous first data point, the error between the simulation and
+experiment is in the range of 2 to 4 percent. Throughout the entire simulation, the
+five-parameter Mooney-Rivlin model predicts a higher moment for an equivalent twist,
+which is not entirely expected by the error plots for the hyperelastic test suite
+comparisons; nevertheless, a maximum four percent error appears to be a reasonable
+margin of error for this simulation.</p>
+</section>
+</section>
+<section id="recommendations">
+<h2>15.6. Recommendations<a class="headerlink" href="#recommendations" title="Link to this heading">#</a></h2>
+<p>When performing a similar type of calibration and validation, consider the following
+recommendations:</p>
+<ul class="simple">
+<li><p>Obtain test data from at least two (and preferably all three) of the
+experiments in the hyperelastic test suite.</p></li>
+<li><p>Ensure that the test data covers the range of deformation over which the
+constitutive model will be used.</p></li>
+<li><p>If the error between the experimental data and the constitutive model is too
+great, try limiting the experimental data to the range of deformation over which
+the constitutive model will be used.</p></li>
+<li><p>Use the constitutive model within the range of fitted data only.</p></li>
+<li><p>Use an independent experiment to validate that the constitutive model
+adequately matches the material behavior.</p></li>
+</ul>
+</section>
+<section id="references">
+<h2>15.7. References<a class="headerlink" href="#references" title="Link to this heading">#</a></h2>
+<p>The following references were consulted when creating this example problem:</p>
+<p>1. ASTM International. (2006). (<a class="reference external" href="http://www.astm.org/Standards/D1043.htm">http://www.astm.org/Standards/D1043.htm</a>).
+<em>Standard Test Method for Stiffness Properties of Plastics as a Function of Temperature by Means of a Torsion Test</em>.
+West Conshohocken.
+2. ASTM International. (2006). [ASTM Standard D412](<a class="reference external" href="http://www.astm.org/Standards/D412.htm">http://www.astm.org/Standards/D412.htm</a>).
+<em>Standard Test Methods for Vulcanized Rubber and Thermoplastic Elastomers-Tension</em>.
+West Conshohocken.</p>
+</section>
+<section id="input-files">
+<h2>15.8. Input files<a class="headerlink" href="#input-files" title="Link to this heading">#</a></h2>
+<p>The following files were used in this problem:</p>
+<ul class="simple">
+<li><p><strong>tension_torsion.dat</strong>  – Tension-torsion simulation input file.</p></li>
+<li><p><strong>tension_torsion.cdb</strong> – The common database file containing the model information for this problem
+(called by <strong>tension_torsion.dat</strong> ).</p></li>
+</ul>
+<table class="table">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference external" href="https://storage.ansys.com/doclinks/techdemos.html?code=td-15-DLU-N2a">Download the zipped td-15 file set for this problem</a></p></td>
+</tr>
+</tbody>
+</table>
+<p>For more information, see <a class="reference external" href="https://ansyshelp.ansys.com/Views/Secured/corp/v212/en/ans_tec/tecintro.html">Obtaining the input files</a>.</p>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</section>
+</section>
+
+
+                </article>
+              
+              
+              
+              
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> On this page
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">15.1. Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#problem-description">15.2. Problem description</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#material-properties">15.3. Material properties</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-experiments">15.3.1. Calibration experiments</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-experiment">15.3.2. Validation experiment</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analysis-and-solution-controls">15.4. Analysis and solution controls</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibrating-parameters">15.4.1. Calibrating parameters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validating-parameters">15.4.2. Validating parameters</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#results-and-discussion">15.5. Results and discussion</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#calibration-results">15.5.1. Calibration results</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#validation-results">15.5.2. Validation results</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recommendations">15.6. Recommendations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#references">15.7. References</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#input-files">15.8. Input files</a></li>
+</ul>
+  </nav></div>
+
+  <div class="sidebar-secondary-item"> 
+<div class="tocsection editthispage">
+  <a href="https://github.com/ansys/pymapdl-examples/edit/main/doc/source/technology_showcase_examples/techdemo-15/ex_15-teccalvalhyper.rst">
+    <i class="fa-solid fa-pencil"></i>
+       Edit
+    on GitHub  
+  </a>
+</div>
+
+</div>
+
+  <div class="sidebar-secondary-item">
+
+  <div class="tocsection sourcelink">
+    <a href="../../_sources/technology_showcase_examples/techdemo-15/ex_15-teccalvalhyper.rst.txt">
+      <i class="fa-solid fa-file-lines"></i> Show Source
+    </a>
+  </div>
+</div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+          </footer>
+        
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=5b4479735964841361fd"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=5b4479735964841361fd"></script>
+
+  <footer class="bd-footer">
+<div class="bd-footer__inner bd-page-width">
+  
+    <div class="footer-items__start">
+      
+        <div class="footer-item">
+
+  <p class="copyright">
+    
+      © Copyright (c) 2024 ANSYS, Inc. All rights reserved.
+      <br/>
+    
+  </p>
+</div>
+      
+        <div class="footer-item">
+
+  <p class="sphinx-version">
+    Created using <a href="https://www.sphinx-doc.org/">Sphinx</a> 7.3.7.
+    <br/>
+  </p>
+</div>
+      
+    </div>
+  
+  
+  
+    <div class="footer-items__end">
+      
+        <div class="footer-item"><p class="theme-version">
+  Built with the
+  <a href="https://sphinxdocs.ansys.com/version/stable/index.html"
+    >Ansys Sphinx Theme</a
+  >
+  0.16.6. <br />Last updated on
+  <span id="date"></span>
+</p>
+<script>
+  var options = { day: "numeric", month: "long", year: "numeric" };
+  var lastModifiedDate = new Date(document.lastModified);
+  var date = lastModifiedDate.toLocaleDateString("en-US", options);
+  document.getElementById("date").innerHTML = date;
+</script></div>
+      
+    </div>
+  
+</div>
+
+  </footer>
+  </body>
+</html>
