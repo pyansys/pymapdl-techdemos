@@ -165,7 +165,7 @@ jobs:
 
       - name: "Deploy"
         if: contains(github.ref, 'refs/heads/main')
-        uses: JamesIves/github-pages-deploy-action@v4.6.3
+        uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           branch: gh-pages
