@@ -32,6 +32,7 @@ Lanczos
 Mahoney
 MAPDL
 Matplotlib
+mecanic
 midplane
 midside
 Mises

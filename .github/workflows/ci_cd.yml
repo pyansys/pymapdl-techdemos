@@ -34,8 +34,8 @@ permissions:
 
 jobs:
 
-  style:
-    name: Code style
+  code-style:
+    name: "Code style"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,32 +49,29 @@ jobs:
       - name: Test with tox
         run: tox -e style
 
+
   doc-style:
-    name: Documentation Style Check
+    name: "Documentation Style Check"
     runs-on: ubuntu-latest
     steps:
-      # TODO - Fix codestyle issues
-      # - name: PyAnsys documentation style checks
-      #   uses: ansys/actions/doc-style@v4
-      #   with:
-      #     token: ${{ secrets.GITHUB_TOKEN }}
-      #     vale-version: "2.29.6"
-      - name : TODO - Reactivate code style
-        run : sleep 1
+      - name: "PyAnsys documentation style checks"
+        uses: ansys/actions/doc-style@v8
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
   doc-build:
     name: "Documentation building"
-    needs: [style, doc-style]
+    needs: [code-style, doc-style]
     timeout-minutes: 60
     outputs:
       PYMAPDL_VERSION: ${{ steps.version.outputs.PYMAPDL_VERSION }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       PYMAPDL_PORT: 21000  # default won't work on GitHub runners
       PYMAPDL_DB_PORT: 21001  # default won't work on GitHub runners
       PYMAPDL_START_INSTANCE: FALSE
       ON_DOCUMENTATION: TRUE
-    
+
     steps:
       - name: "Install Git and checkout project"
         uses: actions/checkout@v4
@@ -106,14 +103,14 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt install zip pandoc libgl1-mesa-glx xvfb texlive-latex-extra latexmk graphviz texlive-xetex libgomp1
-     
+
       - name: "Set up Python using cache"
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           cache: 'pip'
           cache-dependency-path: 'requirements/requirements_doc.txt'
-        
+
       - name: "Install Python requirements"
         run: |
           pip uninstall ansys-mapdl-core
@@ -153,7 +150,7 @@ jobs:
           .ci/waiting_services.sh
 
       - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@v6
+        uses: ansys/actions/doc-build@v8
         with:
           requires-xvfb: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
@@ -172,7 +169,7 @@ jobs:
           folder: doc/_build/html
           clean: true
           single-commit: true
-      
+
       - name: "Display Docker files structures"
         if: always()
         env:
@@ -180,7 +177,7 @@ jobs:
           LOG_NAMES: logs-build-docs
         run: |
           .ci/display_logs.sh
-      
+
       - name: "Collect MAPDL logs on failure"
         if: always()
         env:
@@ -189,14 +186,14 @@ jobs:
           LOG_NAMES: logs-build-docs
         run: |
           .ci/collect_mapdl_logs.sh
-      
+
       - name: "Tar logs"
         if: always()
         run: |
           cp -f doc/_build/latex/*.log ./logs-build-docs/
           cp log.txt ./logs-build-docs/
           tar cvzf ./logs-build-docs.tgz ./logs-build-docs
-      
+
       - name: "Upload logs to GitHub"
         if: always()
         uses: actions/upload-artifact@v4
@@ -218,7 +215,7 @@ jobs:
 
   release:
     if: github.event_name == 'refs/heads/main' && !contains(github.ref, 'refs/tags')
-    needs: [style, doc-build] #docs-style
+    needs: [code-style, doc-build] #docs-style
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
