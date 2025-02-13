@@ -1,4 +1,4 @@
-# Copyright (C) 2022 - 2024 ANSYS, Inc. and/or its affiliates.
+# Copyright (C) 2022 - 2025 ANSYS, Inc. and/or its affiliates.
 # SPDX-License-Identifier: MIT
 #
 #
@@ -40,7 +40,7 @@ Analysis type(s):
  - Static Analysis ``ANTYPE=0``
 
 Element type(s):
- - 2-D 4-Node Sructural Solid Elements (PLANE182)
+ - 2-D 4-Node Structural Solid Elements (PLANE182)
  - 2-D 8-Node Structural Solid Elements (PLANE183)
 
 .. image:: ../_static/vm5_setup.png

@@ -171,7 +171,7 @@ cylindrical shape tool, as shown in the following figure:
    mapdl.cyl4(0, 0, r1, 90, r1, 180, h)
    mapdl.cyl4(0, 0, r1, 180, r1, 270, h)
    mapdl.cyl4(0, 0, r1, 270, r1, 360, h)
-   mapdl.vglue(3, 4, 5, 6);
+   mapdl.vglue(3, 4, 5, 6)
 
 .. jupyter-execute:: 
     :hide-code:
@@ -327,7 +327,7 @@ region. The following figure shows the 3-D meshed model:
     
     # Plotting mesh
     mapdl.allsel()
-    pl = pyvista.Plotter()
+    pl = pyvista.Plotter(theme=mytheme)
     pl.add_mesh(mapdl.mesh.grid, show_edges=True, color='gray')
     pl.show()
     
@@ -436,11 +436,11 @@ model the contact surface on the top surface of the workpiece, and the
     mapdl.allsel("all")
 
     # Plotting geometry
-    pl = pyvista.Plotter()
+    pl = pyvista.Plotter(theme=mytheme)
     for elem, color in zip((170, 174),('red', 'blue')):
         mapdl.esel("s", "ename","", elem)
         esurf = mapdl.mesh._grid.linear_copy().extract_surface().clean()
-        pl.add_mesh(esurf, 
+        pl.add_mesh(mesh=esurf,
                     show_edges=True, 
                     show_scalar_bar=False, 
                     style='surface', 
@@ -543,6 +543,9 @@ The following contact settings are used for the ``CONTA174`` elements:
 
 .. jupyter-execute:: 
     :hide-code:
+    
+    # Unselecting previous elements
+    mapdl.esel("none")
 
     ## figure 28.5
     mapdl.allsel("all")
@@ -561,8 +564,15 @@ The following contact settings are used for the ``CONTA174`` elements:
         mapdl.esel("r", "ename", "", elem)
         esurf = mapdl.mesh._grid.linear_copy().extract_surface().clean()
         if mapdl.mesh.n_elem != 1:
-            pl.add_mesh(esurf, show_edges=True, show_scalar_bar=False,
-                    style='surface', color=color)
+            pl.add_mesh(
+                meshes=[esurf],
+                points=[],
+                labels=[],
+                show_edges=True,
+                show_scalar_bar=False,
+                style='surface',
+                color=color
+            )
     pl.show()
 
 **Figure 28.5: Rigid surface constrained.**
@@ -753,7 +763,7 @@ to the backing plate.
 .. jupyter-execute:: 
     :hide-code:
 
-    pl = pyvista.Plotter()
+    pl = pyvista.Plotter(theme=mytheme)
 
     mapdl.allsel()
     mapdl.asel('u', 'loc', 'z', -t)
@@ -1034,7 +1044,7 @@ workpiece due to plunging of the tool in the first load step:
    :hide-code:
 
    rotor1 = pyvista.read(download_tech_demo_data("td-28/supporting_files",'Figure_28.9.vtk'))
-   pl = pyvista.Plotter()
+   pl = pyvista.Plotter(theme=mytheme)
    pl.add_mesh(rotor1, scalars="values", cmap='jet', show_edges=True)
    pl.show() 
 
@@ -1050,7 +1060,7 @@ tool, as shown in this figure:
    :hide-code:
 
    rotor1 = pyvista.read(download_tech_demo_data("td-28/supporting_files",'Figure_28.10.vtk'))
-   pl = pyvista.Plotter()
+   pl = pyvista.Plotter(theme=mytheme)
    pl.add_mesh(rotor1, scalars="values", cmap='jet', show_edges=True)
    pl.show() 
 

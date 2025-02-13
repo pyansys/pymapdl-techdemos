@@ -1,6 +1,5 @@
 Allgaier
 [Aa]nsys
-ANSYS
 axisymmetric
 billon
 centerline
@@ -32,6 +31,7 @@ Lanczos
 Mahoney
 MAPDL
 Matplotlib
+mecanic
 midplane
 midside
 Mises

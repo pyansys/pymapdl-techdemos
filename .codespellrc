@@ -1,4 +1,4 @@
 [codespell]
 skip = *.pyc,*.xml,*.txt,*.gif,*.png,*.jpg,*.js,*.html,*.doctree,*.ttf,*.woff,*.woff2,*.eot,*.mp4,*.inv,*.pickle,*.ipynb,flycheck*,./.git/*,./.hypothesis/*,*.yml,./doc/build/*,./doc/images/*,./dist/*,*~,.hypothesis*,*cover,*.dat,*.mac
 quiet-level = 3
-ignore-words = doc/styles/Vocab/ANSYS/accept.txt
+ignore-words = doc/styles/config/vocabularies/ANSYS/accept.txt
