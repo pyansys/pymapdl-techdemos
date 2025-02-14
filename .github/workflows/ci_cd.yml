@@ -14,7 +14,7 @@ on:
 env:
   DPF_PORT: 21002
   DPF_START_SERVER: False
-  MAIN_PYTHON_VERSION: '3.10'
+  MAIN_PYTHON_VERSION: '3.12'
   MAPDL_PACKAGE: ghcr.io/ansys/mapdl
   MAPDL_IMAGE_VERSION_DOCS_BUILD: v24.1-ubuntu-student
   ON_CI: True
@@ -34,8 +34,8 @@ permissions:
 
 jobs:
 
-  style:
-    name: Code style
+  code-style:
+    name: "Code style"
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -49,8 +49,9 @@ jobs:
       - name: Test with tox
         run: tox -e style
 
+
   doc-style:
-    name: Documentation Style Check
+    name: "Documentation Style Check"
     runs-on: ubuntu-latest
     steps:
       # TODO - Fix codestyle issues
@@ -64,11 +65,11 @@ jobs:
 
   doc-build:
     name: "Documentation building"
-    needs: [style, doc-style]
+    needs: [code-style, doc-style]
     timeout-minutes: 60
     outputs:
       PYMAPDL_VERSION: ${{ steps.version.outputs.PYMAPDL_VERSION }}
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     env:
       PYMAPDL_PORT: 21000  # default won't work on GitHub runners
       PYMAPDL_DB_PORT: 21001  # default won't work on GitHub runners
@@ -102,18 +103,18 @@ jobs:
         run: |
           $(docker pull ghcr.io/ansys/dpf-core:22.2dev && docker run -d --name dpfserver -p ${{ env.DPF_PORT }}:50052 ghcr.io/ansys/dpf-core:22.2dev && echo "DPF Server active on port ${{ env.DPF_PORT }}.") &
 
-      - name: "Install OS packages"
-        run: |
-          sudo apt-get update
-          sudo apt install zip pandoc libgl1-mesa-glx xvfb texlive-latex-extra latexmk graphviz texlive-xetex libgomp1
-     
       - name: "Set up Python using cache"
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           cache: 'pip'
           cache-dependency-path: 'requirements/requirements_doc.txt'
-        
+
+      - name: "Install OS packages"
+        run: |
+          sudo apt update && sudo apt upgrade  
+          sudo apt install zip pandoc libgl1 xvfb texlive-latex-extra latexmk graphviz texlive-xetex libgomp1
+
       - name: "Install Python requirements"
         run: |
           pip uninstall ansys-mapdl-core
@@ -153,13 +154,16 @@ jobs:
           .ci/waiting_services.sh
 
       - name: "Run Ansys documentation building action"
-        uses: ansys/actions/doc-build@v6
+        uses: ansys/actions/doc-build@v8
+        env:
+          LIBGL_ALWAYS_SOFTWARE: 1
+          PYANSYS_VISUALIZER_HTML_BACKEND: true
         with:
           requires-xvfb: true
           python-version: ${{ env.MAIN_PYTHON_VERSION }}
           checkout: false
           skip-install: true
-          sphinxopts: -j auto -W --keep-going
+          sphinxopts: -j auto
           use-python-cache: False
           check-links: False
 
@@ -218,7 +222,7 @@ jobs:
 
   release:
     if: github.event_name == 'refs/heads/main' && !contains(github.ref, 'refs/tags')
-    needs: [style, doc-build] #docs-style
+    needs: [code-style, doc-build] #docs-style
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

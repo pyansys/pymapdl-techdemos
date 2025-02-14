@@ -24,7 +24,8 @@ pyvista.global_theme.window_size = [400, 400]
 pyvista.global_theme.axes.show = True
 pyvista.global_theme.show_scalar_bar = True
 pyvista.global_theme.return_cpos = False
+pyvista.global_theme.trame.server_proxy_enabled = True
 
-pyvista.set_jupyter_backend("trame")
+pyvista.set_jupyter_backend("html")
 
 mytheme = pyvista.global_theme
